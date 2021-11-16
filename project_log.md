@@ -59,7 +59,8 @@ touch gen_diff/scripts/gendiff.py
 ```bash
 touch gen_diff/scripts/gendiff.py
 ```
-пишем код, не забываем добавить в добавляем в **pyproject.toml** в раздел **[tool.poetry]**:
+пишем код, не забываем, что имя пакета называется не так, как называется корневой Python package ("hexlet-code" и "gendiff"),
+поэтому в **pyproject.toml** в секцию **[tool.poetry]** нужно добавить параметр **packages**:
 
 ```
 packages = [
@@ -84,4 +85,15 @@ gendiff:
 lint:
 	poetry run flake8 hexlet-code
 ....
+```
+
+### Задача 2.1
+#### Модифицируйте скрипт (точку входа) gendiff так, чтобы при запуске с флагом -h выводилась справка, как указано выше.
+........
+
+### Задача 2.2
+#### Выполните сборку пакета.
+
+```bash
+poetry build
 ```
