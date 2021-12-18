@@ -29,15 +29,15 @@ build-backend = "poetry.core.masonry.api"
   
 Т.к. инициализировали пакет с помощью команды **poetry init**, а не **poetry new**,  структуру придется задавать вручную
 ```bash
-mkdir -p gen_diff/scripts
-touch gen_diff/__init__.py gen_diff/scripts/__init__.py
+mkdir -p gendiff/scripts
+touch gendiff/__init__.py gendiff/scripts/__init__.py
 ```
 ### Задача 1.2
 
 #### Создайте скрипт (точку входа) gendiff,..
 
 ```bash
-touch gen_diff/scripts/gendiff.py
+touch gendiff/scripts/gendiff.py
 ```
   
 Получили такую структуру:
@@ -45,7 +45,7 @@ touch gen_diff/scripts/gendiff.py
 ```bash
 .
 ├── README.md
-├── gen_diff
+├── gendiff
 │ ├── __init__.py
 │ └── scripts
 │ ├── __init__.py
@@ -57,14 +57,14 @@ touch gen_diff/scripts/gendiff.py
 
 Создаем файл
 ```bash
-touch gen_diff/scripts/gendiff.py
+touch gendiff/scripts/gendiff.py
 ```
 пишем код, не забываем, что имя пакета называется не так, как называется корневой Python package ("hexlet-code" и "gendiff"),
 поэтому в **pyproject.toml** в секцию **[tool.poetry]** нужно добавить параметр **packages**:
 
 ```
 packages = [
-  { include = "gen_diff" },
+  { include = "gendiff" },
 ]
 ```
 и раздел
@@ -89,7 +89,7 @@ lint:
 
 ### Задача 2.1
 #### Модифицируйте скрипт (точку входа) gendiff так, чтобы при запуске с флагом -h выводилась справка, как указано выше.
-........
+OK
 
 ### Задача 2.2
 #### Выполните сборку пакета.
@@ -97,3 +97,28 @@ lint:
 ```bash
 poetry build
 ```
+
+### Задача 3.1
+#### Реализуйте поиск различий между двумя плоскими (только пары ключ-значение) json файлами. Вывод должен быть таким, как показано сверху
+OK
+
+### Задача 3.2
+#### Реализуйте возможность использования пакета как библиотеки
+OK
+
+После установки в систему можно использовать пакет как библиотеку:
+```
+from gendiff import generate_diff
+
+diff = generate_diff(file_path1, file_path2)
+print(diff)
+```
+
+
+### Задача 3.3
+#### Добавьте в ридми аскинему с примером работы пакета
+
+[![asciicast](https://asciinema.org/a/x0yPcUl4fCLdGT3tc3h5IfUbs.svg)](https://asciinema.org/a/x0yPcUl4fCLdGT3tc3h5IfUbs)
+
+
+

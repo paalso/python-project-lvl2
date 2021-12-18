@@ -3,17 +3,19 @@ name = "hexlet-code"
 version = "0.1.0"
 description = "Difference calculator utility"
 authors = ["paalso <40a.pvl@gmail.com>"]
+
 packages = [
-  { include = "gen_diff" },
+  { include = "gendiff" },
 ]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 
 [tool.poetry.scripts]
-gendiff = "gen_diff.scripts.gendiff:main"
+gendiff = "gendiff.scripts.gendiff:main"
 
 [tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

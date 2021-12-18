@@ -5,7 +5,7 @@ gendiff:
 	poetry run gendiff
 
 lint:
-	poetry run flake8 hexlet-code
+	poetry run flake8 gendiff
 
 test:
 	poetry run pytest
@@ -13,12 +13,5 @@ test:
 test-coverage:
 	poetry run pytest --cov=hexlet-code --cov-report xml
 
-selfcheck:
-	poetry check
-
-check: selfcheck test lint
-
-build: check
-	poetry build
-
-.PHONY: install test lint selfcheck check build
+build:
+	python3 -m pip3 install .
