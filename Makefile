@@ -4,6 +4,12 @@ install:
 gendiff:
 	poetry run gendiff
 
+build:
+	poetry build
+
+local-build:
+	python3 -m pip install 
+
 lint:
 	poetry run flake8 gendiff
 
@@ -12,6 +18,3 @@ test:
 
 test-coverage:
 	poetry run pytest --cov=hexlet-code --cov-report xml
-
-build:
-	python3 -m pip3 install .
