@@ -142,3 +142,26 @@ flake8 = "^4.0.1"
 lint:
   poetry run flake8 gendiff
 ```
+
+### Задача 4.3
+#### Напишите тесты, проверяющие корректность сравнения плоских JSON-файлов.
+
+Добавляем к зависимостям pytest```bash
+poetry add --dev pytest
+```
+В **pyproject.toml** в разделе `[tool.poetry.dev-dependencies]`
+появляется запись
+```
+pytest = "^6.2.5"
+```
+
+Добавляем папку для тестов
+```bash
+mkdir tests
+```
+
+В **Makefile**:
+```
+test:
+	poetry run pytest
+```
