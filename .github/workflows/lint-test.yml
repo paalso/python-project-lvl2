@@ -22,7 +22,7 @@ jobs:
     # checkout делает pull репозитория и ветки, в котором запущен;
     # таким образом мы получаем доступ к коду
     - name: Pulls the repo
-      - uses: actions/checkout@v2
+      uses: actions/checkout@v2
     
     # setup-python@v2 устанавливает python версии ${{ matrix.python-version }}
     # указанной в matrix
