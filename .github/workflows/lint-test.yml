@@ -1,0 +1,51 @@
+# имя, чтобы отображалось в интерфейсе
+name: 'lint&test'
+
+# список событий, на который экшен должен запускаться
+on:  push
+
+# список того, что нужно делать
+# каждый job будет выводиться отдельным элементом слева UI
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # we want to test our package on several versions of Python
+        # python-version: [3.6, 3.7, 3.8, 3.9], but let's leave so:
+        python-version: [3.6]
+
+    steps:
+    # uses указывает имена уже написанных экшенов, к-е хотим использовать
+
+    # checkout делает pull репозитория и ветки, в котором запущен;
+    # таким образом мы получаем доступ к коду
+    - name: Pulls the repo
+      - uses: actions/checkout@v2
+    
+    # setup-python@v2 устанавливает python версии ${{ matrix.python-version }}
+    # указанной в matrix
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+      
+    # Gr1N/setup-poetry@v7 устанавливает python poetry
+    - name: Set up Poetry for Python
+      uses: Gr1N/setup-poetry@v7
+    # т.к. flake8 и pytest уже есть в dev-зависимостях
+    # проекта (описаны в pyproject.toml) в [tool.poetry.dev-dependencies]
+    # отдельно их устанавливать не нужно (по идее)
+
+    # Принципиальный момент - хоть flake8 и pytest указаны в dev-зависимостях
+    # (см. выше), но по умолчанию не устанавливаются
+    # (как и все прочие зависимости) - их нужно установить явно
+    - name: Install project dependencies with poetry
+      run: make install
+
+    - name: Lint with flake8
+      run: make lint
+
+    - name: Test with pytest
+      run: make test
