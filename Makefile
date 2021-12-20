@@ -12,9 +12,7 @@ local-build:
 
 lint:
 	poetry run flake8 gendiff
+	poetry run flake8 tests
 
 test:
-	poetry run pytest
-
-test-coverage:
-	poetry run pytest --cov=hexlet-code --cov-report xml
+	poetry run pytest -s -vv

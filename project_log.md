@@ -146,7 +146,8 @@ lint:
 ### Задача 4.3
 #### Напишите тесты, проверяющие корректность сравнения плоских JSON-файлов.
 
-Добавляем к зависимостям pytest```bash
+Добавляем к зависимостям pytest
+```bash
 poetry add --dev pytest
 ```
 В **pyproject.toml** в разделе `[tool.poetry.dev-dependencies]`
