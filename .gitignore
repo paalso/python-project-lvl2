@@ -9,6 +9,3 @@ coverage.xml
 .pytest_cache/
 .vim
 .vscode
-
-*.json
-test.py
