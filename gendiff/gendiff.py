@@ -1,4 +1,4 @@
-import json
+import gendiff.input_parser as input_parser
 
 
 def generate_dicts_difference_dict(old_dict, new_dict):
@@ -28,21 +28,21 @@ def stringify_value(value):
 
 
 def generate_diff(file_path1, file_path2):
-    json1 = json.load(open(file_path1))
-    json2 = json.load(open(file_path2))
-    diff_dict = generate_dicts_difference_dict(json1, json2)
-    tokens = ['{']
+    dict1 = input_parser.get_dict_from_datafile(file_path1)
+    dict2 = input_parser.get_dict_from_datafile(file_path2)
+    diff_dict = generate_dicts_difference_dict(dict1, dict2)
 
+    tokens = ['{']
     for key in sorted(diff_dict):
         if diff_dict[key] == 'added':
-            tokens.append(f'  + {key}: {stringify_value(json2[key])}')
+            tokens.append(f'  + {key}: {stringify_value(dict2[key])}')
         elif diff_dict[key] == 'deleted':
-            tokens.append(f'  - {key}: {stringify_value(json1[key])}')
+            tokens.append(f'  - {key}: {stringify_value(dict1[key])}')
         elif diff_dict[key] == 'unchanged':
-            tokens.append(f'    {key}: {stringify_value(json1[key])}')
+            tokens.append(f'    {key}: {stringify_value(dict1[key])}')
         else:
-            tokens.append(f'  - {key}: {stringify_value(json1[key])}')
-            tokens.append(f'  + {key}: {stringify_value(json2[key])}')
+            tokens.append(f'  - {key}: {stringify_value(dict1[key])}')
+            tokens.append(f'  + {key}: {stringify_value(dict2[key])}')
     tokens.append('}')
 
     return '\n'.join(tokens)
