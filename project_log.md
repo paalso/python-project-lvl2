@@ -143,6 +143,12 @@ lint:
   poetry run flake8 gendiff
 ```
 
+### Задача 4.2
+#### Подключите Github Actions, CodeClimate и бейджики (badges) для них. Все эти настройки выполняются через кнопки в интерфейсе.
+Hexlet course [Continuous Integration (Непрерывная интеграция)](https://ru.hexlet.io/courses/github-actions)
+
+Про [Code Climate](https://ru.hexlet.io/projects/49/members/15349?step=4)
+
 ### Задача 4.3
 #### Напишите тесты, проверяющие корректность сравнения плоских JSON-файлов.
 
