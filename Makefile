@@ -15,4 +15,4 @@ lint:
 	poetry run flake8 tests
 
 test:
-	poetry run pytest -s -vv
+	poetry run pytest -vv

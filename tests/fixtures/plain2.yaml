@@ -1,5 +1,5 @@
 timeout: 20
 married: null
-float: 1
+float: 1.0
 verbose: true
 host: hexlet.io
