@@ -1,46 +1,80 @@
-from gendiff.gendiff import generate_dicts_difference_dict
-from gendiff.gendiff import stringify_value
-
-gen_diff = generate_dicts_difference_dict
-
-
-def test_stringify_value():
-    assert stringify_value('Hexlet') == 'Hexlet'
-    assert stringify_value(50) == '50'
-    assert stringify_value(1.0) == '1.0'
-    assert stringify_value(1e0) == '1.0'
-    assert stringify_value(0.1e1) == '1.0'
-    assert stringify_value(True) == 'true'
-    assert stringify_value(False) == 'false'
-    assert stringify_value(None) == 'null'
+from gendiff.generate_dicts_difference_dict import set_dict_value
+from gendiff.generate_dicts_difference_dict import \
+    generate_dicts_difference_dict as gen_diff
+from tests.fixtures.expected_dicts import NESTED_DICT_1
+from tests.fixtures.expected_dicts import NESTED_DICT_2
+from tests.fixtures.expected_dicts import NESTED_DIFF_DICT_12
+from tests.fixtures.expected_dicts import NESTED_DIFF_DICT_21
 
 
+# ----- set_dict_value tests -----
+def test_set_dict_value0():
+    coll = {}
+    set_dict_value(coll, [], 1)
+    assert coll == {}
+
+
+def test_set_dict_value1():
+    coll = {}
+    set_dict_value(coll, ['a'], 1)
+    assert coll == {'a': 1}
+
+    coll = {}
+    set_dict_value(coll, ['a', 'b', 'c'], 1)
+    assert coll == {'a': {'b': {'c': 1}}}
+
+
+def test_set_dict_value2():
+    coll = {'a': {'b': {'c': 3}}}
+
+    set_dict_value(coll, ['a', 'b', 'c'], 4)
+    assert coll == {'a': {'b': {'c': 4}}}
+
+    set_dict_value(coll, ['a', 'b', 'c', 'd'], 5)
+    assert coll == {'a': {'b': {'c': {'d': 5}}}}
+
+    set_dict_value(coll, ['a', 'b', 'c', 'e'], 6)
+    assert coll == {'a': {'b': {'c': {'d': 5, 'e': 6}}}}
+
+    set_dict_value(coll, ['a', 'b'], 4)
+    assert coll == {'a': {'b': 4}}
+
+    set_dict_value(coll, ['x', 'y', 'z'], 5)
+    assert coll == {'a': {'b': 4}, 'x': {'y': {'z': 5}}}
+
+
+# ----- gen_diff_with_empty_dict tests -----
 def test_gen_diff_with_empty_dict():
-    assert gen_diff({}, {"two": "own"}) == {"two": "added"}
-    assert gen_diff({"one": "eon"}, {}) == {"one": "deleted"}
+    assert gen_diff({}, {'two': 'own'}) == {'two': 'added'}
+    assert gen_diff({'one': 'eon'}, {}) == {'one': 'deleted'}
 
 
-def test_gen_diff():
+def test_gen_diff_nested():
     assert gen_diff(
-        {"three": "eerht"},
-        {"four": "ruof"},
+        {'three': 'eerht'},
+        {'four': 'ruof'},
     ) == {
-        "three": "deleted",
-        "four": "added",
+        'three': 'deleted',
+        'four': 'added',
     }
 
     assert gen_diff(
-        {"five": 5, "six": 6},
-        {"six": "xis", "five": 5},
+        {'five': 5, 'six': 6},
+        {'six': 'xis', 'five': 5},
     ) == {
-        "six": 'changed',
-        "five": 'unchanged',
+        'six': 'changed',
+        'five': 'unchanged',
     }
 
     assert gen_diff(
-        {"seven": "neves"},
-        {"eighth": True},
+        {'seven': 'neves'},
+        {'eighth': True},
     ) == {
-        "seven": "deleted",
-        "eighth": "added",
+        'seven': 'deleted',
+        'eighth': 'added',
     }
+
+
+def test_gen_diff_plain():
+    assert gen_diff(NESTED_DICT_1, NESTED_DICT_2) == NESTED_DIFF_DICT_12
+    assert gen_diff(NESTED_DICT_2, NESTED_DICT_1) == NESTED_DIFF_DICT_21
