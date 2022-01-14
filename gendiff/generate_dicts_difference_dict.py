@@ -8,7 +8,8 @@ def set_dict_value(d: dict, path: tuple, value):
         current[path[-1]] = value
 
 
-def generate_dicts_difference_dict(dict_old: dict, dict_new: dict) -> dict:  # noqa: C901, E501
+def generate_dicts_difference_dict(     # noqa: C901
+        dict_old: dict, dict_new: dict) -> dict:
     diff_dict = {}
 
     def helper(dict_old, dict_new, path):
@@ -21,10 +22,12 @@ def generate_dicts_difference_dict(dict_old: dict, dict_new: dict) -> dict:  # n
         common_keys = new_keys & old_keys
 
         for key in added_keys:
-            set_dict_value(diff_dict, path + (key,), 'added')
+            set_dict_value(diff_dict, path + (key,),
+                           ('added', dict_new[key]))
 
         for key in deleted_keys:
-            set_dict_value(diff_dict, path + (key,), 'deleted')
+            set_dict_value(diff_dict, path + (key,),
+                           ('deleted', dict_old[key]))
 
         for key in common_keys:
             value_new = dict_new[key]
@@ -33,9 +36,11 @@ def generate_dicts_difference_dict(dict_old: dict, dict_new: dict) -> dict:  # n
             if type(value_new) == type(value_old) == dict:
                 helper(value_old, value_new, path + (key,))
             elif value_new != value_old:
-                set_dict_value(diff_dict, path + (key,), 'changed')
+                set_dict_value(diff_dict, path + (key,),
+                               ('changed', (value_old, value_new)))
             else:
-                set_dict_value(diff_dict, path + (key,), 'unchanged')
+                set_dict_value(diff_dict, path + (key,),
+                               ('unchanged', value_old))
 
     helper(dict_old, dict_new, tuple())
     return diff_dict

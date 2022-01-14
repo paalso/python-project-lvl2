@@ -43,38 +43,6 @@ def test_set_dict_value2():
     assert coll == {'a': {'b': 4}, 'x': {'y': {'z': 5}}}
 
 
-# ----- gen_diff_with_empty_dict tests -----
-def test_gen_diff_with_empty_dict():
-    assert gen_diff({}, {'two': 'own'}) == {'two': 'added'}
-    assert gen_diff({'one': 'eon'}, {}) == {'one': 'deleted'}
-
-
 def test_gen_diff_nested():
-    assert gen_diff(
-        {'three': 'eerht'},
-        {'four': 'ruof'},
-    ) == {
-        'three': 'deleted',
-        'four': 'added',
-    }
-
-    assert gen_diff(
-        {'five': 5, 'six': 6},
-        {'six': 'xis', 'five': 5},
-    ) == {
-        'six': 'changed',
-        'five': 'unchanged',
-    }
-
-    assert gen_diff(
-        {'seven': 'neves'},
-        {'eighth': True},
-    ) == {
-        'seven': 'deleted',
-        'eighth': 'added',
-    }
-
-
-def test_gen_diff_plain():
     assert gen_diff(NESTED_DICT_1, NESTED_DICT_2) == NESTED_DIFF_DICT_12
     assert gen_diff(NESTED_DICT_2, NESTED_DICT_1) == NESTED_DIFF_DICT_21

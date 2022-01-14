@@ -9,7 +9,6 @@ NESTED_DICT_1 = {
     'group2': {'abc': 12345, 'deep': {'id': 45}},
 }
 
-
 NESTED_DICT_2 = {
     'common': {
         'follow': False,
@@ -23,53 +22,52 @@ NESTED_DICT_2 = {
     'group3': {'deep': {'id': {'number': 45}}, 'fee': 100500},
 }
 
-
 NESTED_DIFF_DICT_12 = {
     'common': {
-        'follow': 'added',
-        'setting1': 'unchanged',
-        'setting2': 'deleted',
-        'setting3': 'changed',
-        'setting4': 'added',
-        'setting5': 'added',
+        'follow': ('added', False),
+        'setting1': ('unchanged', 'Value 1'),
+        'setting2': ('deleted', 200),
+        'setting3': ('changed', (True, None)),
+        'setting4': ('added', 'blah blah'),
+        'setting5': ('added', {'key5': 'value5'}),
         'setting6': {
-            'key': 'unchanged',
+            'key': ('unchanged', 'value'),
             'doge': {
-                'wow': 'changed',
+                'wow': ('changed', ('', 'so much')),
             },
-            'ops': 'added',
+            'ops': ('added', 'vops'),
         },
     },
     'group1': {
-        'baz': 'changed',
-        'foo': 'unchanged',
-        'nest': 'changed',
+        'baz': ('changed', ('bas', 'bars')),
+        'foo': ('unchanged', 'bar'),
+        'nest': ('changed', ({'key': 'value'}, 'str')),
     },
-    'group2': 'deleted',
-    'group3': 'added',
+    'group2': ('deleted', {'abc': 12345, 'deep': {'id': 45}}),
+    'group3': ('added', {'deep': {'id': {'number': 45}}, 'fee': 100500})
 }
 
 NESTED_DIFF_DICT_21 = {
     'common': {
-        'follow': 'deleted',
-        'setting1': 'unchanged',
-        'setting2': 'added',
-        'setting3': 'changed',
-        'setting4': 'deleted',
-        'setting5': 'deleted',
+        'follow': ('deleted', False),
+        'setting1': ('unchanged', 'Value 1'),
+        'setting2': ('added', 200),
+        'setting3': ('changed', (None, True)),
+        'setting4': ('deleted', 'blah blah'),
+        'setting5': ('deleted', {'key5': 'value5'}),
         'setting6': {
-            'key': 'unchanged',
+            'key': ('unchanged', 'value'),
             'doge': {
-                'wow': 'changed',
+                'wow': ('changed', ('so much', '')),
             },
-            'ops': 'deleted',
+            'ops': ('deleted', 'vops'),
         },
     },
     'group1': {
-        'baz': 'changed',
-        'foo': 'unchanged',
-        'nest': 'changed',
+        'baz': ('changed', ('bars', 'bas')),
+        'foo': ('unchanged', 'bar'),
+        'nest': ('changed', ('str', {'key': 'value'})),
     },
-    'group2': 'added',
-    'group3': 'deleted',
+    'group2': ('added', {'abc': 12345, 'deep': {'id': 45}}),
+    'group3': ('deleted', {'deep': {'id': {'number': 45}}, 'fee': 100500})
 }
