@@ -1,3 +1,6 @@
+# Ignore F405 flake8 linter errors
+# flake8: noqa
+
 from gendiff.gendiff import generate_diff
 from gendiff.gendiff import stringify_simple_value
 from gendiff.gendiff import stringify
@@ -17,60 +20,59 @@ def test_stringify_simple_value():
 
 def test_stringify_value():
     data = {"hello": "world", "is": True, "nested": {"count": 5}}
-    assert stringify(data, spaces_count=1) == STRINGIFIED_DICT_1    # noqa: F405
-    assert stringify(data) == STRINGIFIED_DICT_2    # noqa: F405
+    assert stringify(data, spaces_count=1) == STRINGIFIED_DICT_1
+    assert stringify(data) == STRINGIFIED_DICT_2
     assert stringify(data, replacer='|-', spaces_count=2) == \
-        STRINGIFIED_DICT_3  # noqa: F405
+        STRINGIFIED_DICT_3
     assert stringify(data, spaces_count=4, indent_size=4) == \
-        STRINGIFIED_DICT_INDENTED_1     # noqa: F405
+        STRINGIFIED_DICT_INDENTED_1
     assert stringify(data, spaces_count=4, indent_size=2) == \
-        STRINGIFIED_DICT_INDENTED_2     # noqa: F405
+        STRINGIFIED_DICT_INDENTED_2
     assert stringify(data, spaces_count=4, indent_size=8) == \
-        STRINGIFIED_DICT_INDENTED_3     # noqa: F405
-
+        STRINGIFIED_DICT_INDENTED_3
 
 def test_gendiff_plain():
     # Test jsons
     assert generate_diff(
         './tests/fixtures/plain1.json',
         './tests/fixtures/plain2.json'
-    ) == PLAIN_DIFF_STR_12  # noqa: F405
+    ) == PLAIN_DIFF_STR_12
 
     assert generate_diff(
         './tests/fixtures/plain2.json',
         './tests/fixtures/plain1.json'
-    ) == PLAIN_DIFF_STR_21  # noqa: F405
+    ) == PLAIN_DIFF_STR_21
 
     # Test yamls and # Test yamls with jsons in in various combinations
     assert generate_diff(
         './tests/fixtures/plain1.yaml',
         './tests/fixtures/plain2.yaml'
-    ) == PLAIN_DIFF_STR_12  # noqa: F405
+    ) == PLAIN_DIFF_STR_12
 
     assert generate_diff(
         './tests/fixtures/plain1.json',
         './tests/fixtures/plain2.yaml'
-    ) == PLAIN_DIFF_STR_12  # noqa: F405
+    ) == PLAIN_DIFF_STR_12
 
     assert generate_diff(
         './tests/fixtures/plain1.yml',
         './tests/fixtures/plain2.json'
-    ) == PLAIN_DIFF_STR_12  # noqa: F405
+    ) == PLAIN_DIFF_STR_12
 
     assert generate_diff(
         './tests/fixtures/plain2.yml',
         './tests/fixtures/plain1.yml'
-    ) == PLAIN_DIFF_STR_21  # noqa: F405
+    ) == PLAIN_DIFF_STR_21
 
     assert generate_diff(
         './tests/fixtures/plain2.yml',
         './tests/fixtures/plain1.json'
-    ) == PLAIN_DIFF_STR_21  # noqa: F405
+    ) == PLAIN_DIFF_STR_21
 
     assert generate_diff(
         './tests/fixtures/plain2.json',
         './tests/fixtures/plain1.yaml'
-    ) == PLAIN_DIFF_STR_21  # noqa: F405
+    ) == PLAIN_DIFF_STR_21
 
 
 def test_gendiff_nested():
@@ -78,4 +80,8 @@ def test_gendiff_nested():
     assert generate_diff(
         './tests/fixtures/nested1.json',
         './tests/fixtures/nested2.json'
-    ) == NESTED_DIFF_STR_12     # noqa: F405
+    ) == NESTED_DIFF_STR_12 
+    assert generate_diff(
+        './tests/fixtures/nested1.yaml',
+        './tests/fixtures/nested2.yaml'
+    ) == NESTED_DIFF_STR_12 
