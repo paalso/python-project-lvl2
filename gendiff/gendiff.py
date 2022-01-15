@@ -3,7 +3,7 @@ from gendiff.generate_dicts_difference_dict import \
 from gendiff.input_parser import get_dict_from_datafile
 
 
-def stringify_simple_value(value):
+def stringify_primitive_value(value):
     special_values = {
         'True': 'true',
         'False': 'false',
@@ -14,10 +14,24 @@ def stringify_simple_value(value):
 
 
 def stringify(data, replacer=' ', spaces_count=4, indent_size=0):
+    """Converts any primitive value or standard collection, incl. dictionary
+    to a special format string
+
+    Args:
+        data to stringify: any primitive value or standard collection,
+          incl. dictionary
+        replacer: A string indent for a dict key, defaults to ' '
+        spaces_count: Number of times to indent a dict key, defaults to 4
+        indent_size: Number of additional times to indent a dict content
+        for all lines below the opening brace, defaults to 0
+
+    Returns:
+        A special format string representing the data
+    """
 
     def helper(data, depth):
         if not isinstance(data, dict):
-            return stringify_simple_value(data)
+            return stringify_primitive_value(data)
 
         indent = replacer * (depth * spaces_count + indent_size)
         inner_tokens = (f'{indent}{key}: {helper(value, depth + 1)}'
@@ -32,7 +46,18 @@ def stringify(data, replacer=' ', spaces_count=4, indent_size=0):
     return helper(data, 1)
 
 
-def generate_diff(file_path1: str, file_path2: str) -> str:
+def stylish(file_path1: str, file_path2: str) -> str:
+    """ Returns a special formatted json-like text representation
+    of the difference between two JSONs or YAMLs.
+
+    Args:
+        file_path1: Path to the original JSON/YAML
+        file_path1: Path to the final JSON/YAML
+
+    Returns:
+        A special formatted json-like text representation
+          of the difference between the given files
+    """
     dict1 = get_dict_from_datafile(file_path1)
     dict2 = get_dict_from_datafile(file_path2)
     diff_dict = generate_dicts_difference_dict(dict1, dict2)
@@ -73,3 +98,36 @@ def generate_diff(file_path1: str, file_path2: str) -> str:
         return '\n'.join(tokens)
 
     return helper(diff_dict, 1)
+
+
+def plain(file_path1: str, file_path2: str) -> str:
+    """ Returns a special formatted 'plain' text representation
+    of the difference between two JSONs or YAMLs.
+
+    Args:
+        file_path1: Path to the original JSON/YAML
+        file_path1: Path to the final JSON/YAML
+
+    Returns:
+        A special formatted 'plain' text representation
+          of the difference between the given files
+    """
+
+
+def generate_diff(
+        file_path1: str, file_path2: str, format_name='stylish') -> str:
+    """ Returns a special formatted 'plain' text representation
+    of the difference between two JSONs or YAMLs.
+
+    Args:
+        file_path1: Path to the original JSON/YAML
+        file_path1: Path to the final JSON/YAML
+        format_name: text representation format name, defaults to 'stylish'
+
+    Returns:
+        A special formatted text representation
+          of the difference between the given files
+    """
+    return {'plain': plain, 'stylish': stylish}[format_name](
+        file_path1, file_path2
+    )

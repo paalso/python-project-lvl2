@@ -1,4 +1,7 @@
 def set_dict_value(d: dict, path: tuple, value):
+    """ In the given dictionary, changes (or adds) the value in
+    the specified path. The function mutates the dictionary.
+    """
     if len(path) != 0:
         current = d
         for key in path[:-1]:
@@ -10,6 +13,11 @@ def set_dict_value(d: dict, path: tuple, value):
 
 def generate_dicts_difference_dict(     # noqa: C901
         dict_old: dict, dict_new: dict) -> dict:
+    """ Generates a special format diff dictionary that describes what happened
+    to each key in the given compared dictionaries: whether it was added,
+    changed, or removed, as well as the corresponding dictionary values.
+    """
+
     diff_dict = {}
 
     def helper(dict_old, dict_new, path):

@@ -2,20 +2,20 @@
 # flake8: noqa
 
 from gendiff.gendiff import generate_diff
-from gendiff.gendiff import stringify_simple_value
+from gendiff.gendiff import stringify_primitive_value
 from gendiff.gendiff import stringify
 from tests.fixtures.expected_strings import *   # noqa: F403,F405
 
 
-def test_stringify_simple_value():
-    assert stringify_simple_value('Hexlet') == 'Hexlet'
-    assert stringify_simple_value(50) == '50'
-    assert stringify_simple_value(1.0) == '1.0'
-    assert stringify_simple_value(1e0) == '1.0'
-    assert stringify_simple_value(0.1e1) == '1.0'
-    assert stringify_simple_value(True) == 'true'
-    assert stringify_simple_value(False) == 'false'
-    assert stringify_simple_value(None) == 'null'
+def test_stringify_primitive_value():
+    assert stringify_primitive_value('Hexlet') == 'Hexlet'
+    assert stringify_primitive_value(50) == '50'
+    assert stringify_primitive_value(1.0) == '1.0'
+    assert stringify_primitive_value(1e0) == '1.0'
+    assert stringify_primitive_value(0.1e1) == '1.0'
+    assert stringify_primitive_value(True) == 'true'
+    assert stringify_primitive_value(False) == 'false'
+    assert stringify_primitive_value(None) == 'null'
 
 
 def test_stringify_value():
@@ -84,4 +84,12 @@ def test_gendiff_nested():
     assert generate_diff(
         './tests/fixtures/nested1.yaml',
         './tests/fixtures/nested2.yaml'
+    ) == NESTED_DIFF_STR_12 
+    assert generate_diff(
+        './tests/fixtures/nested1.json',
+        './tests/fixtures/nested2.yaml'
+    ) == NESTED_DIFF_STR_12 
+    assert generate_diff(
+        './tests/fixtures/nested1.yaml',
+        './tests/fixtures/nested2.json'
     ) == NESTED_DIFF_STR_12 
