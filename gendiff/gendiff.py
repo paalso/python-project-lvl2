@@ -46,21 +46,18 @@ def stringify(data, replacer=' ', spaces_count=4, indent_size=0):
     return helper(data, 1)
 
 
-def stylish(file_path1: str, file_path2: str) -> str:
+def gen_stylish_diff(dicts_diff: dict) -> str:
     """ Returns a special formatted json-like text representation
     of the difference between two JSONs or YAMLs.
 
     Args:
-        file_path1: Path to the original JSON/YAML
-        file_path1: Path to the final JSON/YAML
+        dicts_diff: A special format dictionary that describes differance
+          between two dictionaries
 
     Returns:
         A special formatted json-like text representation
           of the difference between the given files
     """
-    dict1 = get_dict_from_datafile(file_path1)
-    dict2 = get_dict_from_datafile(file_path2)
-    diff_dict = generate_dicts_difference_dict(dict1, dict2)
 
     def helper(dict_value, depth):
         deep_indent_size = depth * 4
@@ -97,16 +94,30 @@ def stylish(file_path1: str, file_path2: str) -> str:
 
         return '\n'.join(tokens)
 
-    return helper(diff_dict, 1)
+    return helper(dicts_diff, 1)
 
 
-def plain(file_path1: str, file_path2: str) -> str:
+def gen_plain_diff(dicts_diff: dict) -> str:
     """ Returns a special formatted 'plain' text representation
     of the difference between two JSONs or YAMLs.
 
     Args:
-        file_path1: Path to the original JSON/YAML
-        file_path1: Path to the final JSON/YAML
+        dicts_diff: A special format dictionary that describes differance
+          between two dictionaries
+
+    Returns:
+        A special formatted 'plain' text representation
+          of the difference between the given files
+    """
+
+
+def gen_json_diff(dicts_diff: dict) -> str:
+    """ Returns a special formatted 'plain' text representation
+    of the difference between two JSONs or YAMLs.
+
+    Args:
+        dicts_diff: A special format dictionary that describes differance
+          between two dictionaries
 
     Returns:
         A special formatted 'plain' text representation
@@ -128,6 +139,10 @@ def generate_diff(
         A special formatted text representation
           of the difference between the given files
     """
-    return {'plain': plain, 'stylish': stylish}[format_name](
-        file_path1, file_path2
-    )
+    dict1 = get_dict_from_datafile(file_path1)
+    dict2 = get_dict_from_datafile(file_path2)
+
+    return {'plain': gen_plain_diff,
+            'stylish': gen_stylish_diff,
+            'json': gen_json_diff,
+            }[format_name](generate_dicts_difference_dict(dict1, dict2))

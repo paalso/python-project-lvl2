@@ -19,9 +19,9 @@ def main():
 
     filename1, filename2 = args.filename1, args.filename2
     if not args.format:
-        args.format = 'json'
+        args.format = 'stylish'
 
-    print(generate_diff(filename1, filename2))
+    print(generate_diff(filename1, filename2, args.format))
 
 
 if __name__ == '__main__':
