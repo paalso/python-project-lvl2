@@ -11,9 +11,9 @@ def set_dict_value(d: dict, path: tuple, value):
         current[path[-1]] = value
 
 
-def generate_dicts_difference_dict(     # noqa: C901
+def build_ast(     # noqa: C901
         dict_old: dict, dict_new: dict) -> dict:
-    """ Generates a special format diff dictionary that describes what happened
+    """ Build AST - special format diff dictionary that describes what happened
     to each key in the given compared dictionaries: whether it was added,
     changed, or removed, as well as the corresponding dictionary values.
     """

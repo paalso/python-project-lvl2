@@ -2,7 +2,7 @@ import json
 import yaml
 from gendiff.input_parser import get_file_extension
 from gendiff.input_parser import get_file_reader
-from gendiff.input_parser import get_dict_from_datafile
+from gendiff.input_parser import parse_datafile
 
 
 plain1 = {
@@ -38,9 +38,9 @@ def test_get_file_reader():
 
 
 def test_get_dict_from_datafile():
-    assert get_dict_from_datafile('./tests/fixtures/plain1.json') == plain1
-    assert get_dict_from_datafile('./tests/fixtures/plain2.json') == plain2
-    assert get_dict_from_datafile('./tests/fixtures/plain1.yaml') == plain1
-    assert get_dict_from_datafile('./tests/fixtures/plain2.yaml') == plain2
-    assert get_dict_from_datafile('./tests/fixtures/plain1.yml') == plain1
-    assert get_dict_from_datafile('./tests/fixtures/plain2.yml') == plain2
+    assert parse_datafile('./tests/fixtures/plain1.json') == plain1
+    assert parse_datafile('./tests/fixtures/plain2.json') == plain2
+    assert parse_datafile('./tests/fixtures/plain1.yaml') == plain1
+    assert parse_datafile('./tests/fixtures/plain2.yaml') == plain2
+    assert parse_datafile('./tests/fixtures/plain1.yml') == plain1
+    assert parse_datafile('./tests/fixtures/plain2.yml') == plain2

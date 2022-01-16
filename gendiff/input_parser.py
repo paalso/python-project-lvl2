@@ -16,7 +16,15 @@ def get_file_reader(file_path: str) -> MethodType:
     }.get(get_file_extension(file_path))
 
 
-def get_dict_from_datafile(file_path: str) -> dict:
+def parse_datafile(file_path: str) -> dict:
+    """ Parse given JSON or YAML datafile to a dict.
+
+    Args:
+        file_path: Path to a JSON/YAML
+
+    Returns:
+        The dict representing the given datafile
+    """
     reader = get_file_reader(file_path)
     if reader:
         with open(file_path) as f:

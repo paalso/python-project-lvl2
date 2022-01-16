@@ -1,6 +1,5 @@
-from gendiff.generate_dicts_difference_dict import set_dict_value
-from gendiff.generate_dicts_difference_dict import \
-    generate_dicts_difference_dict as gen_diff
+from gendiff.ast_builder import set_dict_value
+from gendiff.ast_builder import build_ast
 from tests.fixtures.expected_dicts import NESTED_DICT_1
 from tests.fixtures.expected_dicts import NESTED_DICT_2
 from tests.fixtures.expected_dicts import NESTED_DIFF_DICT_12
@@ -44,5 +43,5 @@ def test_set_dict_value2():
 
 
 def test_gen_diff_nested():
-    assert gen_diff(NESTED_DICT_1, NESTED_DICT_2) == NESTED_DIFF_DICT_12
-    assert gen_diff(NESTED_DICT_2, NESTED_DICT_1) == NESTED_DIFF_DICT_21
+    assert build_ast(NESTED_DICT_1, NESTED_DICT_2) == NESTED_DIFF_DICT_12
+    assert build_ast(NESTED_DICT_2, NESTED_DICT_1) == NESTED_DIFF_DICT_21
