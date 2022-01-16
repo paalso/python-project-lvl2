@@ -17,16 +17,15 @@ def _upd_path(path, new_token):
 
 
 def gen_plain_diff(dicts_diff: dict) -> str:    # noqa: C901
-    """ Returns a special formatted 'plain' text representation
-    of the difference between two JSONs or YAMLs.
+    """ Returns a special formatted 'plain' text representation of the given
+      dicts diff file.
 
     Args:
         dicts_diff: A special format dictionary that describes difference
           between two dictionaries
 
     Returns:
-        A special formatted 'plain' text representation
-          of the difference between the given files
+        A special formatted 'plain' text representation of dicts_diff
     """
 
     lines = []

@@ -42,16 +42,15 @@ def _stringify(data, replacer=' ', spaces_count=4, indent_size=0):
 
 
 def gen_stylish_diff(dicts_diff: dict) -> str:
-    """ Returns a special formatted json-like text representation
-    of the difference between two JSONs or YAMLs.
+    """Returns a special formatted json-like text representation of the given
+      dicts diff file.
 
     Args:
         dicts_diff: A special format dictionary that describes differance
           between two dictionaries
 
     Returns:
-        A special formatted json-like text representation
-          of the difference between the given files
+        A special formatted json-like text representation of dicts_diff
     """
 
     def helper(dict_value, depth):
